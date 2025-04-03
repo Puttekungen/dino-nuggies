@@ -1,0 +1,24 @@
+body {
+    background-color: rgb(47, 153, 47);
+}
+
+.gamewindow {
+    margin-top: 150px;
+    height: 300px;
+    background-image: url(../img/bakgrund.png);
+    border-radius: 10px;
+    position: relative;
+}
+
+.centercolumn {
+    margin: auto;
+    width: 800px;
+}
+
+.meteor {
+    position: absolute;
+    left: 260px;
+    top: 5px;
+    height: 70px;
+    width: 120px;
+}
