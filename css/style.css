@@ -4,8 +4,8 @@ body {
 
 .gamewindow {
     margin-top: 150px;
-    height: 300px;
-    background-image: url(../img/bakgrund.png);
+    height: 424px;
+    background-image: url(../img/bakgrund_test.png);
     border-radius: 10px;
     position: relative;
 }
@@ -17,8 +17,9 @@ body {
 
 .meteor {
     position: absolute;
-    left: 260px;
+    left: 500px;
     top: 5px;
     height: 70px;
-    width: 120px;
+    width: 160px;
+    opacity: 70%;
 }
