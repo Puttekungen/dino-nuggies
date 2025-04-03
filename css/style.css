@@ -17,9 +17,9 @@ body {
 
 .meteor {
     position: absolute;
-    left: 500px;
-    top: 5px;
-    height: 70px;
-    width: 150px;
+    left: 570px;
+    top: 0px;
+    width: 160px;
     opacity: 70%;
+    filter: blur(2px);
 }
