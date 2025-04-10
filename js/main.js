@@ -19,3 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
         meteor.src = images[currentIndex];
     }, 300);
 });
+
+
+function frame() {
+    AudioContext.clearRect(0, 0, innerWidth, height);
+    
+
+    requestAnimationFrame(frame);
+}
