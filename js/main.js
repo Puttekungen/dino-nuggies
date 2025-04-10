@@ -62,3 +62,8 @@ function frame() {
 }
 
 frame();
+
+window.onload = function() {
+    var music = document.getElementById("gameMusic");
+    music.play(); // Spela upp ljudet direkt
+};
