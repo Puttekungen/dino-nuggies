@@ -8,7 +8,7 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width = 800;
 const height = 500;
-const frameWidth = 56;
+const frameWidth = 59;
 const frameHeight = 60;
 const xPos = 130;
 const yPos = 400;
@@ -36,7 +36,7 @@ function displayBackgorund() {
 function animate() {
     context.drawImage(
         spriteSheet,
-        0,
+        1 * frameWidth,
         0,
         frameWidth,
         frameHeight,
