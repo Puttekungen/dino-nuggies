@@ -67,8 +67,12 @@ body {
   }
 
 .box {
-    width: 50px;
-    height: 80px;
+    display: flex;
+    position: absolute;
+    width: 40px;
+    height: 60px;
     background-color: black;
-    margin-bottom: 20px;
+    bottom: 41px;
+    left: 100px;
+    z-index: 2;
 }
