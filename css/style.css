@@ -50,6 +50,7 @@ body {
     filter: blur(2px);
     animation: shake 8s;
     animation-iteration-count: infinite;
+    z-index: 10;
 }
 
 @keyframes shake {
@@ -78,9 +79,9 @@ body {
 }
 
 canvas {
-    background: #EEE;
+    background: transparent;
     display: block;
     margin: 0 auto;
-    border: solid 6px #AAA;
     border-radius: 10px;
+    position: absolute;
 }

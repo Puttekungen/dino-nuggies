@@ -1,51 +1,43 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     let gameWindow = document.querySelector(".gamewindow");
-//     let position = 0;
-//     let meteor = document.getElementById("meteor"); // Hämta elementet här
-//     let images = ["img/meteor1.png", "img/meteor2.png"];
-//     let currentIndex = 0;
 
-//     function scrollBackground() {
-//         position -= 2; // Ändra hastigheten här
-//         gameWindow.style.backgroundPosition = position + "px 0";
-//         requestAnimationFrame(scrollBackground);
-//     }
-
-//     scrollBackground();
-
-//     // Byt bild var 300ms
-//     setInterval(() => {
-//         currentIndex = (currentIndex + 1) % images.length;
-//         meteor.src = images[currentIndex];
-//     }, 300);
-// });
 
 
 const canvas = document.getElementById("canvas");
+/** 
+ * @type {CanvasRenderingContext2D}
+ */
 const context = canvas.getContext("2d");
 const width = 800;
 const height = 500;
 const frameWidth = 56;
 const frameHeight = 60;
 const xPos = 130;
-const yPos = 100;
+const yPos = 400;
 const scale = 1;
 const fps = 60;
 const secondsToUpdate = 1 / fps;
 let count = 0;
 
-canvas.style.marginTop = window.innerHeight / 2 - height / 2 + "px";
 
+const sky = new Image();
+sky.src = "img/himlen.png";
+const background = new Image();
+background.src = "img/bakgrunden.png";
 
 const spriteSheet = new Image();
-spriteSheet.src = "img/dino_spreadsheet.png";
+spriteSheet.src = "img/dino_spritesheet.png";
 
-
+spriteSheet.onerror = () => {
+    console.error("Failed to load the sprite sheet.");
+}
+function displayBackgorund() {
+    context.drawImage(sky, 0, 0, width, height);
+    context.drawImage(background, 0, 0, width, height);
+}
 function animate() {
     context.drawImage(
         spriteSheet,
-        1 * frameWidth,
-        1 * frameHeight,
+        0,
+        0,
         frameWidth,
         frameHeight,
         xPos,
@@ -57,13 +49,14 @@ function animate() {
 
 function frame() {
     context.clearRect(0, 0, width, height);
-    animate();
+    displayBackgorund(); 
+    animate(); 
     requestAnimationFrame(frame);
 }
-
-frame();
 
 window.onload = function() {
     var music = document.getElementById("gameMusic");
     music.play(); // Spela upp ljudet direkt
 };
+
+frame();
