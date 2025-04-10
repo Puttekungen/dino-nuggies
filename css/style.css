@@ -76,3 +76,11 @@ body {
     left: 100px;
     z-index: 2;
 }
+
+canvas {
+    background: #EEE;
+    display: block;
+    margin: 0 auto;
+    border: solid 6px #AAA;
+    border-radius: 10px;
+}

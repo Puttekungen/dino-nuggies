@@ -1,30 +1,30 @@
-document.addEventListener("DOMContentLoaded", function () {
-    let gameWindow = document.querySelector(".gamewindow");
-    let position = 0;
-    let meteor = document.getElementById("meteor"); // Hämta elementet här
-    let images = ["img/meteor1.png", "img/meteor2.png"];
-    let currentIndex = 0;
+// document.addEventListener("DOMContentLoaded", function () {
+//     let gameWindow = document.querySelector(".gamewindow");
+//     let position = 0;
+//     let meteor = document.getElementById("meteor"); // Hämta elementet här
+//     let images = ["img/meteor1.png", "img/meteor2.png"];
+//     let currentIndex = 0;
 
-    function scrollBackground() {
-        position -= 2; // Ändra hastigheten här
-        gameWindow.style.backgroundPosition = position + "px 0";
-        requestAnimationFrame(scrollBackground);
-    }
+//     function scrollBackground() {
+//         position -= 2; // Ändra hastigheten här
+//         gameWindow.style.backgroundPosition = position + "px 0";
+//         requestAnimationFrame(scrollBackground);
+//     }
 
-    scrollBackground();
+//     scrollBackground();
 
-    // Byt bild var 300ms
-    setInterval(() => {
-        currentIndex = (currentIndex + 1) % images.length;
-        meteor.src = images[currentIndex];
-    }, 300);
-});
+//     // Byt bild var 300ms
+//     setInterval(() => {
+//         currentIndex = (currentIndex + 1) % images.length;
+//         meteor.src = images[currentIndex];
+//     }, 300);
+// });
 
 
 const canvas = document.getElementById("canvas");
-const AudioContext = canvas.getContext("2d");
-const width = canvas.width = window.innerWidth;
-const height = canvas.height = window.innerHeight;
+const context = canvas.getContext("2d");
+const width = 800;
+const height = 500;
 const frameWidth = 56;
 const frameHeight = 60;
 const xPos = 130;
@@ -38,14 +38,14 @@ canvas.style.marginTop = window.innerHeight / 2 - height / 2 + "px";
 
 
 const spriteSheet = new Image();
-spriteSheet.src = "img/dino_walk1.png";
+spriteSheet.src = "img/dino_spreadsheet.png";
 
 
 function animate() {
     context.drawImage(
         spriteSheet,
-        0,
-        0,
+        1 * frameWidth,
+        1 * frameHeight,
         frameWidth,
         frameHeight,
         xPos,
@@ -56,7 +56,7 @@ function animate() {
 }
 
 function frame() {
-    AudioContext.clearRect(0, 0, width, height);
+    context.clearRect(0, 0, width, height);
     animate();
     requestAnimationFrame(frame);
 }
