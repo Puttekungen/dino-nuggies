@@ -58,6 +58,19 @@ const state = {
     },
 };
 
+
+document.getElementById("startBtn").addEventListener("click", function () {
+    const music = document.getElementById("gameMusic");
+    music.play().catch(err => {
+        console.log("Ljud kunde inte spelas:", err);
+    });
+
+    this.style.display = "none"; // Göm knappen
+    frame(); // Starta spelet efter klick
+});
+
+
+
 state.generateState("standing", 0, 0);
 state.generateState("walk", 0, 1);
 state.generateState("jump", 2, 2);
@@ -72,8 +85,8 @@ let forestX = 0;
 let groundX = 0;
 
 const skySpeed = 1.5;
-const forestSpeed = 2.5;
-const groundSpeed = 2;
+const forestSpeed = 5.5;
+const groundSpeed = 10;
 
 
 function displayBackground() {
@@ -124,21 +137,7 @@ function animate(state) {
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
-    if (isJumping) {
-        velocityY += gravity;
-        dinoY += velocityY;
-    
-        if (dinoY >= yPos) {
-            dinoY = yPos;
-            isJumping = false;
-            velocityY = 0;
-        }
-    }    
-    if (isJumping) {
-        animate(state.getState("jump"));
-    } else {
-        animate(state.getState("walk"));
-    }    
+    animate(state.getState("standing")); 
     requestAnimationFrame(frame);
 }
 
