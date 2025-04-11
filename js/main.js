@@ -10,7 +10,7 @@ const width = 800;
 const height = 500;
 const frameWidth = 59;
 const frameHeight = 60;
-const xPos = 130;
+const xPos = 100;
 const yPos = 400;
 const scale = 1;
 const fps = 60;
@@ -19,9 +19,11 @@ let count = 0;
 
 
 const sky = new Image();
-sky.src = "img/himlen.png";
-const background = new Image();
-background.src = "img/bakgrunden.png";
+sky.src = "img/sky.png";
+const forest = new Image();
+forest.src = "img/forest.png";
+const ground = new Image();
+ground.src = "img/ground.png";
 
 const spriteSheet = new Image();
 spriteSheet.src = "img/dino_spritesheet.png";
@@ -31,7 +33,8 @@ spriteSheet.onerror = () => {
 }
 function displayBackgorund() {
     context.drawImage(sky, 0, 0, width, height);
-    context.drawImage(background, 0, 0, width, height);
+    context.drawImage(forest, 0, 0, width, height);
+    context.drawImage(ground, 0, 0, width, height);
 }
 function animate() {
     context.drawImage(
