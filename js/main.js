@@ -8,8 +8,8 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width = 800;
 const height = 500;
-const frameWidth = 59;
-const frameHeight = 60;
+const frameWidth = 28;
+const frameHeight = 30;
 const xPos = 100;
 const yPos = 400;
 const scale = 1;
@@ -47,9 +47,9 @@ const state = {
     },
 };
 
-state.generateState("walk", 0, 1);
-state.generateState("jump", 2, 2);
-state.generateState("dead", 3, 3);
+State.generateState("walk", 0, 1);
+State.generateState("jump", 2, 2);
+State.generateState("dead", 3, 3);
 
 spriteSheet.onerror = () => {
     console.error("Failed to load the sprite sheet.");
@@ -76,7 +76,7 @@ function animate(state) {
         frameIndex ++;
         count = 0;
     }
-    if (frameIndex > 1) {
+    if (state.frameIndex > state.endIndex) {
         frameIndex = 0;
     }
 }
