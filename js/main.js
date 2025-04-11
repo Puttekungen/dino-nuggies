@@ -13,8 +13,6 @@ const frameHeight = 60;
 const xPos = 100;
 const yPos = 403.5;
 const scale = 1;
-const fps = 60;
-const secondsToUpdate = 2 / fps;
 let frameIndex = 0;
 let count = 0;
 
@@ -72,7 +70,7 @@ function animate(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > secondsToUpdate) {
+    if (count > 15) {
         state.frameIndex ++;
         count = 0;
     }
