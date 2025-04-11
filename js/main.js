@@ -45,6 +45,7 @@ const state = {
     },
 };
 
+state.generateState("standing", 0, 0);
 state.generateState("walk", 0, 1);
 state.generateState("jump", 2, 2);
 state.generateState("dead", 3, 3);
@@ -82,7 +83,7 @@ function animate(state) {
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
-    animate(state.getState("walk")); 
+    animate(state.getState("standing")); 
     requestAnimationFrame(frame);
 }
 
