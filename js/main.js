@@ -15,6 +15,7 @@ const yPos = 400;
 const scale = 1;
 const fps = 60;
 const secondsToUpdate = 1 / fps;
+let frameIndex = 0;
 let count = 0;
 
 
@@ -28,10 +29,32 @@ ground.src = "img/ground.png";
 const spriteSheet = new Image();
 spriteSheet.src = "img/dino_spritesheet.png";
 
+const state = {
+    states: {},
+    generateState: function(name, startIndex, endIndex) {
+        if (!this.states[name]) {
+            this.states[name] = {
+                frameIndex: startIndex,
+                startIndex: startIndex,
+                endIndex: endIndex,
+            };
+        }
+    },
+    getState: function(name) {
+        if (this.states[name]) {
+            return this.states[name];
+        }
+    },
+};
+
+state.generateState("walk", 0, 1);
+state.generateState("jump", 2, 2);
+state.generateState("dead", 3, 3);
+
 spriteSheet.onerror = () => {
     console.error("Failed to load the sprite sheet.");
 }
-function displayBackgorund() {
+function displayBackground() {
     context.drawImage(sky, 0, 0, width, height);
     context.drawImage(forest, 0, 0, width, height);
     context.drawImage(ground, 0, 0, width, height);
@@ -39,7 +62,7 @@ function displayBackgorund() {
 function animate() {
     context.drawImage(
         spriteSheet,
-        1 * frameWidth,
+        frameIndex * frameWidth,
         0,
         frameWidth,
         frameHeight,
@@ -48,12 +71,20 @@ function animate() {
         frameWidth * scale,
         frameHeight * scale
     );
+    count ++;
+    if (count > 15) {
+        frameIndex ++;
+        count = 0;
+    }
+    if (frameIndex > 1) {
+        frameIndex = 0;
+    }
 }
 
 function frame() {
     context.clearRect(0, 0, width, height);
-    displayBackgorund(); 
-    animate(); 
+    displayBackground(); 
+    animate(state.getState); 
     requestAnimationFrame(frame);
 }
 
