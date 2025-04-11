@@ -8,13 +8,13 @@ const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
 const width = 800;
 const height = 500;
-const frameWidth = 28;
-const frameHeight = 30;
+const frameWidth = 56;
+const frameHeight = 60;
 const xPos = 100;
-const yPos = 400;
+const yPos = 403.5;
 const scale = 1;
 const fps = 60;
-const secondsToUpdate = 1 / fps;
+const secondsToUpdate = 2 / fps;
 let frameIndex = 0;
 let count = 0;
 
@@ -47,9 +47,9 @@ const state = {
     },
 };
 
-State.generateState("walk", 0, 1);
-State.generateState("jump", 2, 2);
-State.generateState("dead", 3, 3);
+state.generateState("walk", 0, 1);
+state.generateState("jump", 2, 2);
+state.generateState("dead", 3, 3);
 
 spriteSheet.onerror = () => {
     console.error("Failed to load the sprite sheet.");
@@ -72,19 +72,19 @@ function animate(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > 15) {
-        frameIndex ++;
+    if (count > secondsToUpdate) {
+        state.frameIndex ++;
         count = 0;
     }
     if (state.frameIndex > state.endIndex) {
-        frameIndex = 0;
+        state.frameIndex = state.startIndex;
     }
 }
 
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
-    animate(state.getState); 
+    animate(state.getState("walk")); 
     requestAnimationFrame(frame);
 }
 
