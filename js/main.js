@@ -54,11 +54,39 @@ state.generateState("dead", 3, 3);
 spriteSheet.onerror = () => {
     console.error("Failed to load the sprite sheet.");
 }
+
+let skyX = 0;
+let forestX = 0;
+let groundX = 0;
+
+const skySpeed = 1.5;
+const forestSpeed = 5.5;
+const groundSpeed = 10;
+
+
 function displayBackground() {
-    context.drawImage(sky, 0, 0, width, height);
-    context.drawImage(forest, 0, 0, width, height);
-    context.drawImage(ground, 0, 0, width, height);
+    // Uppdatera positionerna
+    skyX -= skySpeed;
+    forestX -= forestSpeed;
+    groundX -= groundSpeed;
+
+    // Loopa bakgrunden när den rullar utanför canvas
+    if (skyX <= -width) skyX = 0;
+    if (forestX <= -width) forestX = 0;
+    if (groundX <= -width) groundX = 0;
+
+    // Rita varje lager två gånger för att få en sömlös loop
+    context.drawImage(sky, skyX, 0, width, height);
+    context.drawImage(sky, skyX + width, 0, width, height);
+
+    context.drawImage(forest, forestX, 0, width, height);
+    context.drawImage(forest, forestX + width, 0, width, height);
+
+    context.drawImage(ground, groundX, 0, width, height);
+    context.drawImage(ground, groundX + width, 0, width, height);
 }
+
+
 function animate(state) {
     context.drawImage(
         spriteSheet,
