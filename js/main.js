@@ -16,6 +16,19 @@ const scale = 1;
 let frameIndex = 0;
 let count = 0;
 
+let isJumping = false;
+let velocityY = 0;
+const gravity = 0.8;
+const jumpForce = -12;
+let dinoY = yPos;
+
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space" && !isJumping) {
+        isJumping = true;
+        velocityY = jumpForce;
+    }
+});
+
 
 const sky = new Image();
 sky.src = "img/sky.png";
@@ -59,8 +72,8 @@ let forestX = 0;
 let groundX = 0;
 
 const skySpeed = 1.5;
-const forestSpeed = 5.5;
-const groundSpeed = 10;
+const forestSpeed = 2.5;
+const groundSpeed = 2;
 
 
 function displayBackground() {
@@ -94,7 +107,7 @@ function animate(state) {
         frameWidth,
         frameHeight,
         xPos,
-        yPos,
+        dinoY,
         frameWidth * scale,
         frameHeight * scale
     );
@@ -111,7 +124,21 @@ function animate(state) {
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
-    animate(state.getState("standing")); 
+    if (isJumping) {
+        velocityY += gravity;
+        dinoY += velocityY;
+    
+        if (dinoY >= yPos) {
+            dinoY = yPos;
+            isJumping = false;
+            velocityY = 0;
+        }
+    }    
+    if (isJumping) {
+        animate(state.getState("jump"));
+    } else {
+        animate(state.getState("walk"));
+    }    
     requestAnimationFrame(frame);
 }
 
