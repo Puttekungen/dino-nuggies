@@ -59,10 +59,10 @@ function displayBackground() {
     context.drawImage(forest, 0, 0, width, height);
     context.drawImage(ground, 0, 0, width, height);
 }
-function animate() {
+function animate(state) {
     context.drawImage(
         spriteSheet,
-        frameIndex * frameWidth,
+        state.frameIndex * frameWidth,
         0,
         frameWidth,
         frameHeight,
