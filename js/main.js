@@ -67,6 +67,7 @@ document.getElementById("startBtn").addEventListener("click", function () {
     });
 
     this.style.display = "none"; // Göm knappen
+    // frame(); // Starta spelet efter klick
 });
 
 
@@ -88,9 +89,9 @@ let groundX = 0;
 
 
 function displayBackground() {
-    let skySpeed = 1.5 * difficulty;
-    let forestSpeed = 2.5 * difficulty;
-    let groundSpeed = 5 * difficulty;
+    let skySpeed = 0 * difficulty;
+    let forestSpeed = 0 * difficulty;
+    let groundSpeed = 0 * difficulty;
 
     // Uppdatera positionerna
     skyX -= skySpeed;
@@ -161,7 +162,15 @@ function frame() {
         animate(state.getState("jump"));
     } else {
         animate(state.getState("walk"));
-    }    
+    }
+
+    // gör så att bakgrunden rör sig när man tryckt på startknappen
+    if (document.getElementById("startBtn").style.display === "none") {
+        skySpeed = 0.5 * difficulty;
+        forestSpeed = 1 * difficulty;
+        groundSpeed = 2 * difficulty;
+    } 
+    
     requestAnimationFrame(frame);
     difficulty_Level();
     console.log(groundSpeed, forestSpeed, skySpeed);
