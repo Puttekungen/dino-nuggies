@@ -1,5 +1,6 @@
-let difficulty = 1; // Default svårighetsgrad
+let difficulty = 1.1; // Default svårighetsgrad
 
+let score = 0;
 
 const canvas = document.getElementById("canvas");
 /** 
@@ -18,7 +19,7 @@ let count = 0;
 
 let isJumping = false;
 let velocityY = 0;
-const gravity = 0.8;
+const gravity = 0.6;
 const jumpForce = -12;
 let dinoY = yPos;
 
@@ -59,15 +60,15 @@ const state = {
 };
 
 
-// document.getElementById("startBtn").addEventListener("click", function () {
-//     const music = document.getElementById("gameMusic");
-//     music.play().catch(err => {
-//         console.log("Ljud kunde inte spelas:", err);
-//     });
+document.getElementById("startBtn").addEventListener("click", function () {
+    const music = document.getElementById("gameMusic");
+    music.play().catch(err => {
+        console.log("Ljud kunde inte spelas:", err);
+    });
 
-//     this.style.display = "none"; // Göm knappen
-//     frame(); // Starta spelet efter klick
-// });
+    this.style.display = "none"; // Göm knappen
+    // frame(); // Starta spelet efter klick
+});
 
 
 
@@ -134,9 +135,32 @@ function animate(state) {
     }
 }
 
+function difficulty_Level() {
+    if (score > 5000) {
+        difficulty = 3;
+    } else if (score > 4000) {
+        difficulty = 2.5;
+    } else if (score > 3000) {
+        difficulty = 2;
+    } else if (score > 300) {
+        difficulty = 1.3;
+    } else if (score > 200) {
+        difficulty = 1.2;
+    } else if (score > 100) {
+        difficulty = 1.1;
+    } else {
+        difficulty = 1;
+    }
+}
+
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
+
+    score += 1; // Öka poängen varje frame
+    context.font = "20px Arial";
+    context.fillText("Score: " + Math.floor(score), 20, 30);
+
     if (isJumping) {
         velocityY += gravity;
         dinoY += velocityY;
@@ -153,6 +177,7 @@ function frame() {
         animate(state.getState("walk"));
     }    
     requestAnimationFrame(frame);
+    difficulty_Level();
 }
 
 window.onload = function() {
