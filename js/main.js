@@ -59,15 +59,15 @@ const state = {
 };
 
 
-// document.getElementById("startBtn").addEventListener("click", function () {
-//     const music = document.getElementById("gameMusic");
-//     music.play().catch(err => {
-//         console.log("Ljud kunde inte spelas:", err);
-//     });
+document.getElementById("startBtn").addEventListener("click", function () {
+    const music = document.getElementById("gameMusic");
+    music.play().catch(err => {
+        console.log("Ljud kunde inte spelas:", err);
+    });
 
-//     this.style.display = "none"; // Göm knappen
-//     frame(); // Starta spelet efter klick
-// });
+    this.style.display = "none"; // Göm knappen
+    frame(); // Starta spelet efter klick
+});
 
 
 
@@ -84,9 +84,9 @@ let skyX = 0;
 let forestX = 0;
 let groundX = 0;
 
-const skySpeed = 1.5 * difficulty;
-const forestSpeed = 5.5 * difficulty;
-const groundSpeed = 5 * difficulty;
+let skySpeed = 0 * difficulty;
+let forestSpeed = 0 * difficulty;
+let groundSpeed = 0 * difficulty;
 
 
 function displayBackground() {
@@ -151,7 +151,15 @@ function frame() {
         animate(state.getState("jump"));
     } else {
         animate(state.getState("walk"));
-    }    
+    }
+
+    // gör så att bakgrunden rör sig när man tryckt på startknappen
+    if (document.getElementById("startBtn").style.display === "none") {
+        skySpeed = 0.5 * difficulty;
+        forestSpeed = 1 * difficulty;
+        groundSpeed = 2 * difficulty;
+    } 
+    
     requestAnimationFrame(frame);
 }
 
