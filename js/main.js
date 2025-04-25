@@ -141,9 +141,8 @@ function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
 
-    score += 1; // Öka poängen varje frame
-
-    difficulty = 1 + Math.floor(score / 100) * 0.1;
+    score += 1;
+    difficulty = 1 + Math.floor(score / 200) * 0.08;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
