@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(47, 153, 47);
+    background-color: rgb(61, 95, 61);
 }
 
 .gamewindow {
@@ -9,6 +9,10 @@ body {
     position: relative;
     width: 800px;
     overflow: hidden;
+    border: 3px;
+    border-radius: 15px;
+    border-style: solid;
+    border-color: black;
 }
 
 .gamewindowforest {
