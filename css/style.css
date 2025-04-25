@@ -45,7 +45,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 90vh;
 }
 
 .meteor {
@@ -81,4 +81,8 @@ canvas {
     margin: 0 auto;
     border-radius: 10px;
     position: absolute;
+}
+
+button {
+    
 }
