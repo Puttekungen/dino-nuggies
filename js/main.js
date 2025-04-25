@@ -1,6 +1,7 @@
 let difficulty = 1; // Default svårighetsgrad
 let score = 0;
 let start = 0;
+let scoreStart = 0;
 
 const canvas = document.getElementById("canvas");
 /** 
@@ -66,8 +67,10 @@ document.getElementById("startBtn").addEventListener("click", function () {
         console.log("Ljud kunde inte spelas:", err);
     });
 
+    
     this.style.display = "none"; // Göm knappen
     start = 1
+    scoreStart = 1;
 });
 
 
@@ -139,8 +142,8 @@ function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
 
-    score += 1;
-    difficulty = 1 + Math.floor(score / 200) * 0.08;
+    score += 1 * scoreStart;
+    difficulty = 1 + Math.floor(score / 200) * 0.06;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
