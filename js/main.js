@@ -86,7 +86,7 @@ let forestX = 0;
 let groundX = 0;
 
 let skySpeed = 1.5 * difficulty;
-let forestSpeed = 5.5 * difficulty;
+let forestSpeed = 2.5 * difficulty;
 let groundSpeed = 5 * difficulty;
 
 
