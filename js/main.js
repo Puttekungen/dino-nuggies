@@ -1,4 +1,4 @@
-
+let difficulty = 1; // Default svårighetsgrad
 
 
 const canvas = document.getElementById("canvas");
@@ -59,15 +59,15 @@ const state = {
 };
 
 
-document.getElementById("startBtn").addEventListener("click", function () {
-    const music = document.getElementById("gameMusic");
-    music.play().catch(err => {
-        console.log("Ljud kunde inte spelas:", err);
-    });
+// document.getElementById("startBtn").addEventListener("click", function () {
+//     const music = document.getElementById("gameMusic");
+//     music.play().catch(err => {
+//         console.log("Ljud kunde inte spelas:", err);
+//     });
 
-    this.style.display = "none"; // Göm knappen
-    frame(); // Starta spelet efter klick
-});
+//     this.style.display = "none"; // Göm knappen
+//     frame(); // Starta spelet efter klick
+// });
 
 
 
@@ -84,9 +84,9 @@ let skyX = 0;
 let forestX = 0;
 let groundX = 0;
 
-const skySpeed = 1.5;
-const forestSpeed = 5.5;
-const groundSpeed = 10;
+const skySpeed = 1.5 * difficulty;
+const forestSpeed = 5.5 * difficulty;
+const groundSpeed = 5 * difficulty;
 
 
 function displayBackground() {
@@ -137,7 +137,21 @@ function animate(state) {
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
-    animate(state.getState("standing")); 
+    if (isJumping) {
+        velocityY += gravity;
+        dinoY += velocityY;
+    
+        if (dinoY >= yPos) {
+            dinoY = yPos;
+            isJumping = false;
+            velocityY = 0;
+        }
+    }    
+    if (isJumping) {
+        animate(state.getState("jump"));
+    } else {
+        animate(state.getState("walk"));
+    }    
     requestAnimationFrame(frame);
 }
 
