@@ -1,6 +1,6 @@
-let difficulty = 1.1; // Default svårighetsgrad
-
+let difficulty = 1; // Default svårighetsgrad
 let score = 0;
+let start = 0;
 
 const canvas = document.getElementById("canvas");
 /** 
@@ -67,7 +67,7 @@ document.getElementById("startBtn").addEventListener("click", function () {
     });
 
     this.style.display = "none"; // Göm knappen
-    // frame(); // Starta spelet efter klick
+    start = 1
 });
 
 
@@ -85,13 +85,10 @@ let skyX = 0;
 let forestX = 0;
 let groundX = 0;
 
-
-
-
 function displayBackground() {
-    let skySpeed = 0 * difficulty;
-    let forestSpeed = 0 * difficulty;
-    let groundSpeed = 0 * difficulty;
+    let skySpeed = 1.5 * difficulty * start;
+    let forestSpeed = 2.5 * difficulty * start;
+    let groundSpeed = 5.5 * difficulty * start;
 
     // Uppdatera positionerna
     skyX -= skySpeed;
