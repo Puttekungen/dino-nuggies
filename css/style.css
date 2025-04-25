@@ -3,7 +3,6 @@ body {
 }
 
 .gamewindow {
-    margin-top: 150px;
     height: 500px;
     border-radius: 10px;
     position: relative;
@@ -39,6 +38,10 @@ body {
 .centercolumn {
     margin: auto;
     width: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .meteor {

@@ -85,9 +85,9 @@ let skyX = 0;
 let forestX = 0;
 let groundX = 0;
 
-const skySpeed = 1.5 * difficulty;
-const forestSpeed = 5.5 * difficulty;
-const groundSpeed = 5 * difficulty;
+let skySpeed = 1.5 * difficulty;
+let forestSpeed = 5.5 * difficulty;
+let groundSpeed = 5 * difficulty;
 
 
 function displayBackground() {
@@ -178,6 +178,8 @@ function frame() {
     }    
     requestAnimationFrame(frame);
     difficulty_Level();
+    console.log(groundSpeed, forestSpeed, skySpeed);
+    console.log("Svårighetsgrad: " + difficulty);
 }
 
 window.onload = function() {
