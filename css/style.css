@@ -54,7 +54,7 @@ body {
     top: 0px;
     width: 160px;
     opacity: 70%;
-    filter: blur(2px);
+    filter: blur(1px);
     animation: shake 8s;
     animation-iteration-count: infinite;
     z-index: 10;

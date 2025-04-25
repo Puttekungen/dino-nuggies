@@ -67,7 +67,6 @@ document.getElementById("startBtn").addEventListener("click", function () {
     });
 
     this.style.display = "none"; // Göm knappen
-    // frame(); // Starta spelet efter klick
 });
 
 
@@ -85,12 +84,14 @@ let skyX = 0;
 let forestX = 0;
 let groundX = 0;
 
-let skySpeed = 1.5 * difficulty;
-let forestSpeed = 2.5 * difficulty;
-let groundSpeed = 5 * difficulty;
+
 
 
 function displayBackground() {
+    let skySpeed = 1.5 * difficulty;
+    let forestSpeed = 2.5 * difficulty;
+    let groundSpeed = 5 * difficulty;
+
     // Uppdatera positionerna
     skyX -= skySpeed;
     forestX -= forestSpeed;
@@ -135,29 +136,15 @@ function animate(state) {
     }
 }
 
-function difficulty_Level() {
-    if (score > 5000) {
-        difficulty = 3;
-    } else if (score > 4000) {
-        difficulty = 2.5;
-    } else if (score > 3000) {
-        difficulty = 2;
-    } else if (score > 300) {
-        difficulty = 1.3;
-    } else if (score > 200) {
-        difficulty = 1.2;
-    } else if (score > 100) {
-        difficulty = 1.1;
-    } else {
-        difficulty = 1;
-    }
-}
 
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
 
     score += 1; // Öka poängen varje frame
+
+    difficulty = 1 + Math.floor(score / 100) * 0.1;
+    
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
 
