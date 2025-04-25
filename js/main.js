@@ -164,18 +164,10 @@ function frame() {
         animate(state.getState("walk"));
     }
 
-    // gör så att bakgrunden rör sig när man tryckt på startknappen
-    if (document.getElementById("startBtn").style.display === "none") {
-        skySpeed = 0.5 * difficulty;
-        forestSpeed = 1 * difficulty;
-        groundSpeed = 2 * difficulty;
-    } 
-    
     requestAnimationFrame(frame);
-    difficulty_Level();
-    console.log(groundSpeed, forestSpeed, skySpeed);
-    console.log("Svårighetsgrad: " + difficulty);
 }
+
+
 
 window.onload = function() {
     var music = document.getElementById("gameMusic");
