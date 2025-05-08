@@ -8,6 +8,7 @@ const canvas = document.getElementById("canvas");
  * @type {CanvasRenderingContext2D}
  */
 const context = canvas.getContext("2d");
+context.imageSmoothingEnabled = false; // Stänger av bildglättning för att få skarpare bilder
 const width = 800;
 const height = 500;
 const frameWidth = 56;
@@ -128,7 +129,7 @@ function animate(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > 15) {
+    if (count > 10) {
         state.frameIndex ++;
         count = 0;
     }
@@ -167,6 +168,9 @@ function frame() {
     requestAnimationFrame(frame);
 }
 
+function hitbox() {
+        
+}
 
 
 window.onload = function() {
