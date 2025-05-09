@@ -145,7 +145,7 @@ function frame() {
     displayBackground(); 
 
     score += 1 * scoreStart;
-    difficulty = 1 + Math.floor(score / 200) * 0.06;
+    difficulty = 1 + Math.floor(score / 200) * 0.07;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
@@ -160,10 +160,15 @@ function frame() {
             velocityY = 0;
         }
     }    
-    if (isJumping) {
-        animate(state.getState("jump"));
+    // Välj animation baserat på om spelet har startat
+    if (start === 0) {
+        animate(state.getState("standing")); // Stå stilla innan start
     } else {
-        animate(state.getState("walk"));
+        if (isJumping) {
+            animate(state.getState("jump"));
+        } else {
+            animate(state.getState("walk"));
+        }
     }
 
     requestAnimationFrame(frame);
