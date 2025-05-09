@@ -62,16 +62,18 @@ const state = {
 };
 
 
-document.getElementById("startBtn").addEventListener("click", function () {
-    const music = document.getElementById("gameMusic");
-    music.play().catch(err => {
-        console.log("Ljud kunde inte spelas:", err);
-    });
+document.addEventListener("keydown", function (event) {
+    if (event.code === "Space" && start === 0) {
+        const music = document.getElementById("gameMusic");
+        music.play().catch(err => {
+            console.log("Ljud kunde inte spelas:", err);
+        });
 
-    
-    this.style.display = "none"; // Göm knappen
-    start = 1
-    scoreStart = 1;
+        const startBtn = document.getElementById("startBtn");
+        startBtn.style.display = "none"; // Göm knappen
+        start = 1;
+        scoreStart = 1;
+    }
 });
 
 
