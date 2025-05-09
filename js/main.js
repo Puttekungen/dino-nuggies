@@ -18,6 +18,8 @@ const yPos = 403.5;
 const scale = 1;
 let frameIndex = 0;
 let count = 0;
+let objects = [];
+let obsticles = []
 
 let isJumping = false;
 let velocityY = 0;
@@ -132,8 +134,7 @@ function displayBackground() {
     if (forestX <= -width) forestX = 0;
     if (groundX <= -width) groundX = 0;
     if (stoneX <= -64) stoneX = width;
-
-
+    
     // Rita varje lager två gånger för att få en sömlös loop
     context.drawImage(sky, skyX, 0, width, height);
     context.drawImage(sky, skyX + width, 0, width, height);
@@ -144,14 +145,52 @@ function displayBackground() {
     context.drawImage(ground, groundX, 0, width, height);
     context.drawImage(ground, groundX + width, 0, width, height);
 
-    context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
-    context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
+    // context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
+    // context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
 
-    
+    obsticles.forEach((rock) => {
+        rock.update();
+    });
 }
 
+class rock {
+    constructor(type) {
+        this.type = type;
+        this.x = 1000;
+        this.y = height - 96;
+        this.width = 64;
+        if (this.type === 0) {
+            this.height = 64;
+        } else if (this.type === 1) {
+            this.height = 34;
+        }
+        this.height = 64;
+        this.speed = 5.5 * difficulty * start;
+    }
+    // 34
+    update() {
+        this.x -= 5.5 * difficulty * start;
+        context.drawImage(
+            rockSprite, 
+            this.width * this.type, 
+            0, 
+            this.width, 
+            this.height, 
+            this.x, 
+            height - 96, 
+            this.width, 
+            this.height
+        );
+        if (this.x < -64) {
+            obsticles.push(new rock(Math.floor(Math.random() * 2)));
+            obsticles.shift();
+        }
+    }
+}
 
-function animate(state) {
+obsticles.push(new rock(0));
+
+function animateDino(state) {
     context.drawImage(
         spriteSheet,
         state.frameIndex * frameWidth,
@@ -195,15 +234,15 @@ function frame() {
             isJumping = false;
             velocityY = 0;
         }
-    }    
+    }
     // Välj animation baserat på om spelet har startat
     if (start === 0) {
-        animate(state.getState("standing")); // Stå stilla innan start
+        animateDino(state.getState("standing")); // Stå stilla innan start
     } else {
         if (isJumping) {
-            animate(state.getState("jump"));
+            animateDino(state.getState("jump"));
         } else {
-            animate(state.getState("walk"));
+            animateDino(state.getState("walk"));
         }
     }
 
