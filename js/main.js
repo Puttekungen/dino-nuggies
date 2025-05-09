@@ -219,7 +219,7 @@ function frame() {
 
     // }
 
-    score += 1 * scoreStart;
+    score += 0.3 * scoreStart;
     difficulty = 1 + Math.floor(score / 200) * 0.06;
     
     context.font = "20px Arial";
