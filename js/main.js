@@ -104,6 +104,7 @@ function displayBackground() {
     if (forestX <= -width) forestX = 0;
     if (groundX <= -width) groundX = 0;
 
+
     // Rita varje lager två gånger för att få en sömlös loop
     context.drawImage(sky, skyX, 0, width, height);
     context.drawImage(sky, skyX + width, 0, width, height);
@@ -129,7 +130,7 @@ function animate(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > 10) {
+    if (count > 14) {
         state.frameIndex ++;
         count = 0;
     }
