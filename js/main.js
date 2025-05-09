@@ -8,6 +8,7 @@ const canvas = document.getElementById("canvas");
  * @type {CanvasRenderingContext2D}
  */
 const context = canvas.getContext("2d");
+context.imageSmoothingEnabled = false; // Stänger av bildglättning för att få skarpare bilder
 const width = 800;
 const height = 500;
 const frameWidth = 56;
@@ -103,6 +104,7 @@ function displayBackground() {
     if (forestX <= -width) forestX = 0;
     if (groundX <= -width) groundX = 0;
 
+
     // Rita varje lager två gånger för att få en sömlös loop
     context.drawImage(sky, skyX, 0, width, height);
     context.drawImage(sky, skyX + width, 0, width, height);
@@ -128,7 +130,7 @@ function animate(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > 15) {
+    if (count > 14) {
         state.frameIndex ++;
         count = 0;
     }
@@ -143,7 +145,7 @@ function frame() {
     displayBackground(); 
 
     score += 1 * scoreStart;
-    difficulty = 1 + Math.floor(score / 200) * 0.06;
+    difficulty = 1 + Math.floor(score / 200) * 0.07;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
@@ -158,15 +160,23 @@ function frame() {
             velocityY = 0;
         }
     }    
-    if (isJumping) {
-        animate(state.getState("jump"));
+    // Välj animation baserat på om spelet har startat
+    if (start === 0) {
+        animate(state.getState("standing")); // Stå stilla innan start
     } else {
-        animate(state.getState("walk"));
+        if (isJumping) {
+            animate(state.getState("jump"));
+        } else {
+            animate(state.getState("walk"));
+        }
     }
 
     requestAnimationFrame(frame);
 }
 
+function hitbox() {
+        
+}
 
 
 window.onload = function() {

@@ -86,3 +86,15 @@ canvas {
 button {
     
 }
+
+.stone1 {
+    display: flex;
+    justify-content: center;
+    height: 70px;
+    width: 50px;
+    background-color: black;
+    position: absolute;
+    bottom: 37px;
+    left: 200px;
+    z-index: 10;
+}
