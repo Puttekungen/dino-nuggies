@@ -172,12 +172,10 @@ function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
 
-    if (start === 1) {  // Rita bara när spelet har startat
-        drawRock();
-    }
+    // }
 
     score += 1 * scoreStart;
-    difficulty = 1 + Math.floor(score / 200) * 0.07;
+    difficulty = 1 + Math.floor(score / 200) * 0.06;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
