@@ -40,10 +40,33 @@ forest.src = "img/forest.png";
 const ground = new Image();
 ground.src = "img/ground.png";
 
+// Lägg till efter de andra bildladdningarna
+const rockSprite = new Image();
+rockSprite.src = "img/rock_spritesheet.png";
+
+
 const spriteSheet = new Image();
 spriteSheet.src = "img/dino_spritesheet.png";
 
 const state = {
+    states: {},
+    generateState: function(name, startIndex, endIndex) {
+        if (!this.states[name]) {
+            this.states[name] = {
+                frameIndex: startIndex,
+                startIndex: startIndex,
+                endIndex: endIndex,
+            };
+        }
+    },
+    getState: function(name) {
+        if (this.states[name]) {
+            return this.states[name];
+        }
+    },
+};
+
+const stone = {
     states: {},
     generateState: function(name, startIndex, endIndex) {
         if (!this.states[name]) {
@@ -116,6 +139,9 @@ function displayBackground() {
 
     context.drawImage(ground, groundX, 0, width, height);
     context.drawImage(ground, groundX + width, 0, width, height);
+
+    context.drawImage(rockSprite, 0, 3, 64, 64, 700, height - 96, 64, 64);
+    context.drawImage(rockSprite, 0, 3, 64, 64, 700 + width, height - 96, 64, 64);
 }
 
 
@@ -145,6 +171,10 @@ function animate(state) {
 function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
+
+    if (start === 1) {  // Rita bara när spelet har startat
+        drawRock();
+    }
 
     score += 1 * scoreStart;
     difficulty = 1 + Math.floor(score / 200) * 0.07;
