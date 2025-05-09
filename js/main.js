@@ -113,21 +113,25 @@ spriteSheet.onerror = () => {
 let skyX = 0;
 let forestX = 0;
 let groundX = 0;
+let stoneX = 1000;
 
 function displayBackground() {
     let skySpeed = 1.5 * difficulty * start;
     let forestSpeed = 2.5 * difficulty * start;
     let groundSpeed = 5.5 * difficulty * start;
+    let stoneSpeed = 5.5 * difficulty * start;
 
     // Uppdatera positionerna
     skyX -= skySpeed;
     forestX -= forestSpeed;
     groundX -= groundSpeed;
+    stoneX -= stoneSpeed;
 
     // Loopa bakgrunden när den rullar utanför canvas
     if (skyX <= -width) skyX = 0;
     if (forestX <= -width) forestX = 0;
     if (groundX <= -width) groundX = 0;
+    if (stoneX <= -64) stoneX = width;
 
 
     // Rita varje lager två gånger för att få en sömlös loop
@@ -140,8 +144,10 @@ function displayBackground() {
     context.drawImage(ground, groundX, 0, width, height);
     context.drawImage(ground, groundX + width, 0, width, height);
 
-    context.drawImage(rockSprite, 0, 3, 64, 64, 700, height - 96, 64, 64);
-    context.drawImage(rockSprite, 0, 3, 64, 64, 700 + width, height - 96, 64, 64);
+    context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
+    context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
+
+    
 }
 
 
