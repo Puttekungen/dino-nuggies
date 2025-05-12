@@ -1,4 +1,4 @@
-let difficulty = 1; // Default svårighetsgrad
+let difficulty = 1;
 let score = 0;
 let start = 0;
 let scoreStart = 0;
@@ -23,7 +23,7 @@ let obsticles = []
 
 let isJumping = false;
 let velocityY = 0;
-const gravity = 0.6;
+const gravity = 0.55;
 const jumpForce = -12;
 let dinoY = yPos;
 
@@ -41,12 +41,8 @@ const forest = new Image();
 forest.src = "img/forest.png";
 const ground = new Image();
 ground.src = "img/ground.png";
-
-// Lägg till efter de andra bildladdningarna
 const rockSprite = new Image();
 rockSprite.src = "img/rock_spritesheet.png";
-
-
 const spriteSheet = new Image();
 spriteSheet.src = "img/dino_spritesheet.png";
 
@@ -137,7 +133,7 @@ function displayBackground() {
     
     // Rita varje lager två gånger för att få en sömlös loop
     context.drawImage(sky, skyX, 0, width, height);
-    context.drawImage(sky, skyX + width, 0, width, height);
+    context.drawImage(sky, skyX + width - 1, 0, width, height);
 
     context.drawImage(forest, forestX, 0, width, height);
     context.drawImage(forest, forestX + width, 0, width, height);
