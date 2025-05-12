@@ -157,7 +157,7 @@ class rock {
     constructor(type) {
         this.type = type;
         this.x = 1000;
-        this.y = height - 96;
+        this.y = height - 94;
         this.width = 64;
         if (this.type === 0) {
             this.height = 64;
@@ -177,7 +177,7 @@ class rock {
             this.width, 
             this.height, 
             this.x, 
-            height - 96, 
+            height - 94, 
             this.width, 
             this.height
         );
@@ -219,7 +219,7 @@ function frame() {
 
     // }
 
-    score += 0.3 * scoreStart;
+    score += 0.1 * scoreStart;
     difficulty = 1 + Math.floor(score / 200) * 0.06;
     
     context.font = "20px Arial";
