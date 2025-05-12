@@ -91,9 +91,11 @@ document.addEventListener("keydown", function (event) {
         });
 
         const startBtn = document.getElementById("startBtn");
-        startBtn.style.display = "none"; // Göm knappen
+        startBtn.style.display = "none";
         start = 1;
         scoreStart = 1;
+        dinoY = yPos;
+        obsticles = [new rock(0)];
     }
 });
 
@@ -166,6 +168,7 @@ class rock {
     // 34
     update() {
         this.x -= 5.5 * difficulty * start;
+
         context.drawImage(
             rockSprite, 
             this.width * this.type, 
@@ -177,6 +180,19 @@ class rock {
             this.width, 
             this.height
         );
+
+        if (start === 1 && hitbox(xPos, dinoY, this.x, height - 94)) {
+        // Spelet är över
+        start = 0;
+        scoreStart = 0;
+        animateDino(state.getState("dead"));
+        const startBtn = document.getElementById("startBtn");
+        startBtn.style.display = "flex";
+        startBtn.innerHTML = "Game Over! Score: " + Math.floor(score) + "<br>Press Space to Restart";
+        score = 0;
+        difficulty = 1;
+    }
+
         if (this.x < -64) {
             obsticles.push(new rock(Math.floor(Math.random() * 2)));
             obsticles.shift();
@@ -208,6 +224,19 @@ function animateDino(state) {
     }
 }
 
+function hitbox(dinoX, dinoY, rockX, rockY) {
+    const dinoWidth = frameWidth * 0.9;
+    const dinoHeight = frameHeight * 0.9;
+
+    const rockWidth = 64;
+    const rockHeight = 64;
+
+    return dinoX < rockX + rockWidth &&
+           dinoX + dinoWidth > rockX &&
+           dinoY < rockY + rockHeight &&
+           dinoY + dinoHeight > rockY;
+}
+
 
 function frame() {
     context.clearRect(0, 0, width, height);
@@ -215,7 +244,7 @@ function frame() {
 
     // }
 
-    score += 0.1 * scoreStart;
+    score += 0.2 * scoreStart;
     difficulty = 1 + Math.floor(score / 200) * 0.06;
     
     context.font = "20px Arial";
@@ -245,9 +274,7 @@ function frame() {
     requestAnimationFrame(frame);
 }
 
-function hitbox() {
-        
-}
+
 
 
 window.onload = function() {
