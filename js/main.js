@@ -9,7 +9,7 @@ const canvas = document.getElementById("canvas");
  * @type {CanvasRenderingContext2D}
  */
 const context = canvas.getContext("2d");
-context.imageSmoothingEnabled = false; // Stänger av bildglättning för att få skarpare bilder
+context.imageSmoothingEnabled = false;
 const width = 800;
 const height = 500;
 const frameWidth = 56;
@@ -78,7 +78,7 @@ const stone = {
     },
 };
 
-
+// de olika state dino kan vara i 
 state.generateState("standing", 0, 0);
 state.generateState("walk", 0, 1);
 state.generateState("jump", 2, 2);
@@ -93,25 +93,23 @@ let forestX = 0;
 let groundX = 0;
 let stoneX = 1000;
 
+// ritar de olika delarna bakgrunden består av och ritar samma bild igen till höger för att det inte blir tomt
 function displayBackground() {
     let skySpeed = 1.5 * difficulty * start;
     let forestSpeed = 2.5 * difficulty * start;
     let groundSpeed = 5.5 * difficulty * start;
-    let stoneSpeed = 0.5 * difficulty * start;
+    let stoneSpeed = 5.5 * difficulty * start;
 
-    // Uppdatera positionerna
     skyX -= skySpeed;
     forestX -= forestSpeed;
     groundX -= groundSpeed;
     stoneX -= stoneSpeed;
 
-    // Loopa bakgrunden när den rullar utanför canvas
     if (skyX <= -width) skyX = 0;
     if (forestX <= -width) forestX = 0;
     if (groundX <= -width) groundX = 0;
     if (stoneX <= -64) stoneX = width;
     
-    // Rita varje lager två gånger för att få en sömlös loop
     context.drawImage(sky, skyX, 0, width, height);
     context.drawImage(sky, skyX + width - 1, 0, width, height);
 
@@ -120,9 +118,6 @@ function displayBackground() {
 
     context.drawImage(ground, groundX, 0, width, height);
     context.drawImage(ground, groundX + width, 0, width, height);
-
-    // context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
-    // context.drawImage(rockSprite, 0, 0, 64, 64, stoneX, height - 96, 64, 64);
 
     obsticles.forEach((rock) => {
         rock.update();
@@ -143,7 +138,7 @@ class rock {
         this.height = 64;
         this.speed = 5.5 * difficulty * start;
     }
-    // 34
+    
     update() {
         this.x -= 5.5 * difficulty * start;
 
@@ -160,7 +155,7 @@ class rock {
         );
 
         if (start === 1 && hitbox(xPos, dinoY, this.x, height - 94)) {
-        // Spelet är över
+        
         start = 0;
         scoreStart = 0;
         isDead = true;
@@ -180,6 +175,7 @@ class rock {
 
 obsticles.push(new rock(0));
 
+// Ritar dinosaurien 
 function animateDino(state) {
     context.drawImage(
         spriteSheet,
@@ -193,7 +189,8 @@ function animateDino(state) {
         frameHeight * scale
     );
     count ++;
-    if (count > 14) {
+    // Bestämmer hur snabbt dinosaurien rör sig
+    if (count > 10) {
         state.frameIndex ++;
         count = 0;
     }
@@ -201,18 +198,15 @@ function animateDino(state) {
         state.frameIndex = state.startIndex;
     }
 }
-
+// Funktion för att kolla om stenen och dinosaurien nuddar varandra
 function hitbox(dinoX, dinoY, rockX, rockY) {
     const dinoWidth = frameWidth * 0.9;
     const dinoHeight = frameHeight * 0.9;
 
-    const rockWidth = 64;
-    const rockHeight = 64;
+    const rockWidth = 60;
+    const rockHeight = 40;
 
-    return dinoX < rockX + rockWidth &&
-           dinoX + dinoWidth > rockX &&
-           dinoY < rockY + rockHeight &&
-           dinoY + dinoHeight > rockY;
+    return dinoX < rockX + rockWidth && dinoX + dinoWidth > rockX && dinoY < rockY + rockHeight && dinoY + dinoHeight > rockY;
 }
 
 
@@ -220,10 +214,8 @@ function frame() {
     context.clearRect(0, 0, width, height);
     displayBackground(); 
 
-    // }
-
     score += 0.2 * scoreStart;
-    difficulty = 1 + Math.floor(score / 200) * 0.06;
+    difficulty = 1 + Math.floor(score / 50) * 0.06;
     
     context.font = "20px Arial";
     context.fillText("Score: " + Math.floor(score), 20, 30);
@@ -238,9 +230,9 @@ function frame() {
             velocityY = 0;
         }
     }
-    // Välj animation baserat på om spelet har startat
+    
     if (isDead) {
-        animateDino(state.getState("dead")); // Använd dead animation om isDead är true
+        animateDino(state.getState("dead"));
     } else if (start === 0) {
         animateDino(state.getState("standing")); 
     } else {
@@ -256,12 +248,11 @@ function frame() {
 
 document.addEventListener("keydown", function(event) {
     if (event.code === "Space") {
-        // Hantera hopp när spelet är igång
         if (start === 1 && !isJumping) {
             isJumping = true;
             velocityY = jumpForce;
         }
-        // Hantera omstart när spelet är över/inte startat
+    
         else if (start === 0) {
             const music = document.getElementById("gameMusic");
             music.play().catch(err => {
@@ -270,13 +261,12 @@ document.addEventListener("keydown", function(event) {
 
             const startBtn = document.getElementById("startBtn");
             startBtn.style.display = "none";
-            isDead = false;  // Återställ dead state
+            isDead = false;
             start = 1;
             scoreStart = 1;
             dinoY = yPos;
             obsticles = [new rock(0)];
             
-            // Återställ state till walking
             state.frameIndex = state.getState("walk").startIndex;
         }
     }
@@ -284,7 +274,7 @@ document.addEventListener("keydown", function(event) {
 
 window.onload = function() {
     var music = document.getElementById("gameMusic");
-    music.play(); // Spela upp ljudet direkt
+    music.play();
 };
 
 frame();
