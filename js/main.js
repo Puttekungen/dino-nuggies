@@ -2,6 +2,7 @@ let difficulty = 1;
 let score = 0;
 let start = 0;
 let scoreStart = 0;
+let isDead = false;
 
 const canvas = document.getElementById("canvas");
 /** 
@@ -27,12 +28,7 @@ const gravity = 0.55;
 const jumpForce = -12;
 let dinoY = yPos;
 
-document.addEventListener("keydown", function(event) {
-    if (event.code === "Space" && !isJumping) {
-        isJumping = true;
-        velocityY = jumpForce;
-    }
-});
+
 
 
 const sky = new Image();
@@ -83,24 +79,6 @@ const stone = {
 };
 
 
-document.addEventListener("keydown", function (event) {
-    if (event.code === "Space" && start === 0) {
-        const music = document.getElementById("gameMusic");
-        music.play().catch(err => {
-            console.log("Ljud kunde inte spelas:", err);
-        });
-
-        const startBtn = document.getElementById("startBtn");
-        startBtn.style.display = "none";
-        start = 1;
-        scoreStart = 1;
-        dinoY = yPos;
-        obsticles = [new rock(0)];
-    }
-});
-
-
-
 state.generateState("standing", 0, 0);
 state.generateState("walk", 0, 1);
 state.generateState("jump", 2, 2);
@@ -119,7 +97,7 @@ function displayBackground() {
     let skySpeed = 1.5 * difficulty * start;
     let forestSpeed = 2.5 * difficulty * start;
     let groundSpeed = 5.5 * difficulty * start;
-    let stoneSpeed = 5.5 * difficulty * start;
+    let stoneSpeed = 0.5 * difficulty * start;
 
     // Uppdatera positionerna
     skyX -= skySpeed;
@@ -185,7 +163,7 @@ class rock {
         // Spelet är över
         start = 0;
         scoreStart = 0;
-        animateDino(state.getState("dead"));
+        isDead = true;
         const startBtn = document.getElementById("startBtn");
         startBtn.style.display = "flex";
         startBtn.innerHTML = "Game Over! Score: " + Math.floor(score) + "<br>Press Space to Restart";
@@ -261,8 +239,10 @@ function frame() {
         }
     }
     // Välj animation baserat på om spelet har startat
-    if (start === 0) {
-        animateDino(state.getState("standing")); // Stå stilla innan start
+    if (isDead) {
+        animateDino(state.getState("dead")); // Använd dead animation om isDead är true
+    } else if (start === 0) {
+        animateDino(state.getState("standing")); 
     } else {
         if (isJumping) {
             animateDino(state.getState("jump"));
@@ -274,8 +254,33 @@ function frame() {
     requestAnimationFrame(frame);
 }
 
+document.addEventListener("keydown", function(event) {
+    if (event.code === "Space") {
+        // Hantera hopp när spelet är igång
+        if (start === 1 && !isJumping) {
+            isJumping = true;
+            velocityY = jumpForce;
+        }
+        // Hantera omstart när spelet är över/inte startat
+        else if (start === 0) {
+            const music = document.getElementById("gameMusic");
+            music.play().catch(err => {
+                console.log("Ljud kunde inte spelas:", err);
+            });
 
-
+            const startBtn = document.getElementById("startBtn");
+            startBtn.style.display = "none";
+            isDead = false;  // Återställ dead state
+            start = 1;
+            scoreStart = 1;
+            dinoY = yPos;
+            obsticles = [new rock(0)];
+            
+            // Återställ state till walking
+            state.frameIndex = state.getState("walk").startIndex;
+        }
+    }
+});
 
 window.onload = function() {
     var music = document.getElementById("gameMusic");
