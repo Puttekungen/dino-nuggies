@@ -2,43 +2,19 @@ body {
     background-color: rgb(61, 95, 61);
 }
 
+/* hur stort fönstret ska vara */
 .gamewindow {
     height: 500px;
-    border-radius: 10px;
+    border-radius: 15px;
     position: relative;
     width: 800px;
     overflow: hidden;
     border: 3px;
-    border-radius: 15px;
     border-style: solid;
     border-color: rgb(25, 38, 25);
 }
 
-.gamewindowforest {
-    background-image: url(../img/bakgrunden.png);
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    border-radius: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-position: bottom;
-}
-.gamewindowsky {
-    height: 100%;
-    width: 100%;
-    background-image: url(../img/himlen.png);
-    border-radius: 10px;
-    position: absolute;
-    background-size: cover;
-    background-position: bottom;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
+/* gör så att fönstret är i mitten av skärmen  */
 .centercolumn {
     margin: auto;
     width: 800px;
@@ -48,6 +24,7 @@ body {
     height: 90vh;
 }
 
+/* ändrar på meteoritens utseende  */
 .meteor {
     position: absolute;
     left: 570px;
@@ -60,6 +37,7 @@ body {
     z-index: 10;
 }
 
+/* gör så att meteoriten skakar på sig */
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -83,7 +61,8 @@ canvas {
     position: absolute;
 }
 
-button {
+/* gör så att knappen gör allt mörkare, texten i mitten av skärmen */
+.button {
     position: fixed;
     top: 0;
     left: 0;
